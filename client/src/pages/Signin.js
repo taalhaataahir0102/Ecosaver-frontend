@@ -21,7 +21,8 @@ const Signin = () => {
     };
 
     // Send user data to the API
-    fetch('http://localhost:5000/api/signincheck', {
+    // http://localhost:5000/api/signincheck
+    fetch('https://ecosaver-backend-lj4ynzzm3-taalhaataahir0102.vercel.app/api/signincheck', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

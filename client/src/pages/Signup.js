@@ -31,7 +31,7 @@ const Signup = () => {
 
     // Send user data to the API
     //  http://localhost:5000/api/createuser
-    fetch('https://guttural-spotty-trail.glitch.me/api/createuser', {
+    fetch('https://ecosaver-backend-lj4ynzzm3-taalhaataahir0102.vercel.app/api/createuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
