@@ -1,0 +1,74 @@
+/* Signin.css */
+
+.signin-container {
+    display: flex;
+    justify-content: flex-end; /* Align content to the right */
+    align-items: center;
+    height: 100vh;
+    background-image: url('./images/final.jpeg'); /* Add the path or URL to your background image */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .form-container {
+    width: 400px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 50px;
+    margin-right: 50px;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-container input[type="email"],
+  .form-container input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  .form-container button[type="submit"] {
+    width: 100%;
+    padding: 8px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .form-container button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .signup-link {
+    color: #888;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
