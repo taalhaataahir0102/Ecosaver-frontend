@@ -171,7 +171,6 @@ app.post('/api/signincheck', async (req, res) => {
 
   app.post('/api/createcommunity', async (req, res) => {
     const { name, description } = req.body;
-    console.log(name, description);
   
     // Validate the community name and description length
     if (name.trim().length > 15 || description.trim().length > 60) {
@@ -196,7 +195,7 @@ app.post('/api/signincheck', async (req, res) => {
   });
 
 
-  app.get('/api/communities', async (req, res) => {
+  app.get('/api/communities/:userID', authenticateToken, async (req, res) => {
     try {
       // Retrieve all communities from the table
       const communities = await Community.find({}, 'name description').exec();
@@ -209,7 +208,6 @@ app.post('/api/signincheck', async (req, res) => {
 
   app.post('/api/chat', async (req, res) => {
     const { community_id, user_id, message } = req.body;
-    console.log(community_id,user_id,message)
   
     try {
       // Find the community based on the community_id
@@ -235,12 +233,10 @@ app.post('/api/signincheck', async (req, res) => {
 
   app.post('/api/communitychat', async (req, res) => {
     const { communityId } = req.body;
-    console.log(communityId);
   
     try {
       // Find the community by its ID and populate the 'comments.user_id' field
       const community = await Community.findById(communityId).populate('comments.user_id');
-      console.log(community);
   
       if (!community) {
         return res.status(404).json({ error: 'Community not found' });
@@ -255,7 +251,6 @@ app.post('/api/signincheck', async (req, res) => {
           user_id: user_id._id, // Include the user_id
         };
       });
-      console.log(chatData);
   
       res.json(chatData);
     } catch (error) {
@@ -276,10 +271,51 @@ app.post('/api/getUserName', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     
-    // Return the user's name
-    res.json({ name: user.name });
+    // Return the user's name and id
+    res.json({ name: user.name, user_id: user._id });
   } catch (error) {
     console.error('Error fetching user name:', error);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+app.post('/api/useridfromtoken', (req, res) => {
+  const { tokens } = req.body;
+  if (tokens == null) {
+    return res.sendStatus(401);
+  }
+  jwt.verify(tokens, secretKey, (err, user) => {
+    if (err) {
+      return res.sendStatus(403);
+    }
+    // Assuming the user ID is present in the decoded user object
+    const { userID } = user;
+    // Send the user ID back as a response to the front end
+    res.json({ userID });
+  });
+});
+
+app.get('/api/viewtheuser/:userID', async (req, res) => {
+  try {
+    // Access the authenticated user's ID
+    const userID = req.params.userID;
+    // Fetch the user data from the database
+    const user = await User.findById(userID);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+  
+    // Extract the relevant user data
+    const userData = {
+      name: user.name,
+      email: user.email,
+    };
+  
+    // Send the user data as the response
+    return res.status(200).json({ user: userData });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 });
