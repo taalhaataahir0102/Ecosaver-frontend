@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './Dashboard.css';
+import Header from './Header';
 
 const Dashboard = () => {
   const { userID } = useParams();
@@ -36,17 +37,40 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Dashboard</h2>
-      {loading ? (
-        <div className="loading-spinner"></div>
-      ) : (
-        <div>
-          <p>User ID: {userID}</p>
-          <p>Name: {userData?.name}</p>
-          <p>Email: {userData?.email}</p>
-          {/* Display other user data */}
-        </div>
-      )}
+      <Header />
+      <div className="dashboard-content">
+        <h2>Dashboard</h2>
+        {loading ? (
+          <div className="loading-spinner"></div>
+        ) : (
+          <div>
+            <p>User ID: {userID}</p>
+            <p>Name: {userData?.name}</p>
+            <p>Email: {userData?.email}</p>
+            {/* Display other user data */}
+          </div>
+        )}
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
+        
+        {/* Rest of your content */}
+      </div>
     </div>
   );
 };

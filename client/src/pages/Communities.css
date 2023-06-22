@@ -1,0 +1,169 @@
+/* Communities.css */
+
+.community-page {
+  display: flex;
+  padding-top: 55px;
+  height: 100vh; /* Set the height of the community page to the full viewport height */
+}
+
+.sidebar {
+  width: 300px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  height: 100%; /* Set the height of the sidebar to 100% */
+  overflow-y: auto; /* Add scroll if the content exceeds the height */
+}
+
+.sidebar-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.community-list-wrapper {
+  max-height: 530px;
+  overflow-y: auto;
+}
+
+.community-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.community-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.community-item.active {
+  background-color: #e0e0e0;
+}
+
+.main-section {
+  flex: 1;
+  padding: 20px;
+  border-left: 1px solid #ccc;
+  height: 100%; /* Set the height of the main section to 100% */
+  overflow-y: auto; /* Add scroll if the content exceeds the height */
+}
+
+.main-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.community-description {
+  margin-bottom: 20px;
+}
+
+.chat-messages {
+  max-height: 530px;
+  overflow-y: auto;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #e0e0e0;
+  padding: 10px;
+  margin-bottom: 10px;
+  word-break: break-word; /* Enable word breaking */
+}
+
+.sender-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: slateblue;
+  cursor: pointer;
+  text-decoration: none; /* Remove default text decoration */
+}
+
+.sender-name:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.message p {
+  margin: 0; /* Remove default margins from paragraphs */
+  overflow-wrap: break-word; /* Enable word wrapping within paragraphs */
+  word-wrap: break-word; /* Enable word wrapping within paragraphs for older browser compatibility */
+}
+
+.message-input {
+  display: flex;
+  margin-top: 20px;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.message-input button {
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.create-community-button {
+  margin-top: 20px;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.create-community-box {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.create-community-box h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.create-community-box input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.create-community-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.create-community-buttons .cancel-button {
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.create-community-buttons .submit-button {
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

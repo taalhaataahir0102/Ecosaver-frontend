@@ -5,6 +5,7 @@ import React from 'react';
 import Signup from './pages/Signup'
 import Signin from './pages/Signin';
 import Dashboard from './pages/Dashboard';
+import Communities from './pages/Communities';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Signup/>}></Route>
           <Route path="/signup" element={<Signup/>}></Route>
           <Route path="/signin" element={<Signin/>}></Route>
+          <Route path="/communities/:userID" element={<Communities/>}></Route>
           <Route path="/dashboard/:userID" element={<Dashboard />} />
         </Routes>
       </div>
