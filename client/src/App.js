@@ -6,6 +6,7 @@ import Signup from './pages/Signup'
 import Signin from './pages/Signin';
 import Dashboard from './pages/Dashboard';
 import Communities from './pages/Communities';
+import Viewusers from './pages/Viewuser'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/signup" element={<Signup/>}></Route>
           <Route path="/signin" element={<Signin/>}></Route>
           <Route path="/communities/:userID" element={<Communities/>}></Route>
+          <Route path="/viewuser/:userID" element={<Viewusers/>}></Route>
           <Route path="/dashboard/:userID" element={<Dashboard />} />
         </Routes>
       </div>

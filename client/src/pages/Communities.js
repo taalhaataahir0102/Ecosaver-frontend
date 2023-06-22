@@ -12,29 +12,35 @@ const Communities = () => {
   const [communityName, setCommunityName] = useState('');
   const [communityDescription, setCommunityDescription] = useState('');
   const [communities, setCommunities] = useState([]);
-  const [communityID,setCommunityID] = useState('');
+  const [communityID, setCommunityID] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Fetch the communities when the component mounts
-    fetchCommunities();
-  }, []);
 
   const fetchCommunities = async () => {
     try {
-      const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/communities');
+      const token = localStorage.getItem('token');
+      const response = await fetch(`https://ecosaver-backend-taalhaataahir0102.vercel.app/api/communities/${userID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
       if (response.ok) {
         const data = await response.json();
         setCommunities(data);
       } else {
         console.error('Failed to fetch communities');
+        window.location.href = '/signin';
       }
     } catch (error) {
+      window.location.href = '/signin';
       console.error('Error fetching communities:', error);
     }
   };
 
   const handleCommunityClick = async (community) => {
     setActiveCommunity(community);
+    setLoading(true);
     const clickedCommunity = communities.find((c) => c.name === community);
     if (clickedCommunity) {
       setCommunityID(clickedCommunity._id);
@@ -52,17 +58,17 @@ const Communities = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log(data);
           setMessages(data);
         } else {
           console.error('Failed to fetch community chat');
         }
       } catch (error) {
         console.error('Error fetching community chat:', error);
+      } finally {
+        setLoading(false);
       }
     }
   };
-  
 
   const handleSendMessage = async () => {
     if (messageInput.trim() !== '') {
@@ -77,15 +83,16 @@ const Communities = () => {
             user_id: userID,
           }),
         });
-  
+
         if (response.ok) {
           const data = await response.json();
           const userName = data.name; // Extract the user's name from the response
           const newMessage = {
             name: userName, // Use the retrieved user's name
             comment: messageInput.trim(),
+            user_id: data.user_id
           };
-  
+
           // Call the /api/chat endpoint to save the message
           const chatResponse = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/chat', {
             method: 'POST',
@@ -98,20 +105,23 @@ const Communities = () => {
               message: newMessage.comment,
             }),
           });
-  
+
           if (chatResponse.ok) {
             // Message saved successfully
             // Handle success case, e.g., show a success message
             console.log('Message saved successfully');
+
+            // Update the messages state with the new message
+            setMessages([...messages, newMessage]);
+
+            // Clear the message input
+            setMessageInput('');
           } else {
             // Error saving message
             // Handle error case, e.g., show an error message
             const errorData = await chatResponse.json();
             alert(errorData.msg);
           }
-  
-          setMessages([...messages, newMessage]);
-          setMessageInput('');
         } else {
           // Error fetching user's name
           // Handle error case, e.g., show an error message
@@ -123,7 +133,6 @@ const Communities = () => {
       }
     }
   };
-
 
   const handleCreateCommunity = () => {
     setShowCreateCommunity(true);
@@ -141,7 +150,6 @@ const Communities = () => {
     if (communityName.trim() !== '' && communityDescription.trim() !== '') {
       // Create the community
       // You can handle community creation logic here, e.g., make an API call
-      console.log(communityName, communityDescription);
       const createCommunity = async () => {
         try {
           const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/createcommunity', {
@@ -182,8 +190,14 @@ const Communities = () => {
   };
 
   const handlePerson = (user_id) => {
-    console.log(user_id);
+    // Handle the logic to display user details or navigate to user profile
+    window.location.href = `/viewuser/${user_id}`;
   };
+
+  useEffect(() => {
+    // Fetch the communities when the component mounts
+    fetchCommunities();
+  }, []);
 
   return (
     <div>
@@ -241,16 +255,20 @@ const Communities = () => {
                 {communities.find((community) => community.name === activeCommunity)?.description}
               </p>
 
-              <div className="chat-messages">
-              {messages.map((message, index) => (
-                <div className="message" key={index}>
-                  <p className="sender-name" onClick={() => handlePerson(message.user_id)}>
-                    {message.name}
-                  </p>
-                  <p>{message.comment}</p>
+              {loading ? (
+                <div className="loading-spinner" /> // Display the loading spinner
+              ) : (
+                <div className="chat-messages">
+                  {messages.map((message, index) => (
+                    <div className="message" key={index}>
+                      <p className="sender-name" onClick={() => handlePerson(message.user_id)}>
+                        {message.name}
+                      </p>
+                      <p>{message.comment}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-              </div>
+              )}
 
               <div className="message-input">
                 <input

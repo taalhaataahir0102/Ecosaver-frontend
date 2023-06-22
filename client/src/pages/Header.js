@@ -1,22 +1,54 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faGlobe, faTrophy, faLightbulb, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
-    const { userID } = useParams();
+    const token = localStorage.getItem('token');
+    async function fetchUserIDFromToken(token) {
+      try {
+        const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/useridfromtoken', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            tokens: token,
+          }),
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          const userID = data.userID;
+          return userID;
+        } else {
+          console.error('Failed to fetch user ID from token');
+          window.location.href = '/signin';
+          return null;
+        }
+      } catch (error) {
+        console.error('Error fetching user ID:', error);
+        window.location.href = '/signin';
+        return null;
+      }
+    }
 
 
-  const handleHome = () => {
+    const handleHome = async () => {
       // Redirect to the user's dashboard
-      window.location.href = `/dashboard/${userID}`;
+      const userID = await fetchUserIDFromToken(token);
+      if (userID) {
+        window.location.href = `/dashboard/${userID}`;
+      }
     };
 
-  const handleCommunities = () => {
-    // Redirect to the user's dashboard
-    window.location.href = `/communities/${userID}`;
-  };
+    const handleCommunities = async () => {
+      // Redirect to the user's communities page
+      const userID = await fetchUserIDFromToken(token);
+      if (userID) {
+        window.location.href = `/communities/${userID}`;
+      }
+    };
 
 
   const handleLogout = () => {

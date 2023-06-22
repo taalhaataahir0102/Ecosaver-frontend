@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './Dashboard.css';
+import './Viewuser.css';
 import Header from './Header';
 
 const Dashboard = () => {
@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`https://ecosaver-backend-lj4ynzzm3-taalhaataahir0102.vercel.app/api/dashboard/${userID}`, {
+        const response = await fetch(`https://ecosaver-backend-taalhaataahir0102.vercel.app/api/viewtheuser/${userID}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -49,29 +49,8 @@ const Dashboard = () => {
             <p>User ID: {userID}</p>
             <p>Name: {userData?.name}</p>
             <p>Email: {userData?.email}</p>
-            {/* Display other user data */}
           </div>
         )}
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        <h1>Heivbbbbbbbbbbbbbbbbbreiuvbrevbre8vbrivbibf</h1>
-        
-        {/* Rest of your content */}
       </div>
     </div>
   );
