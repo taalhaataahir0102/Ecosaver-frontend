@@ -29,8 +29,9 @@ const News = () => {
         
         //const userData = await userResponse.json();
         
-        const articleResponse = await fetch('https://newsapi.org/v2/everything?q=ecosystem&apiKey=36f6b80f9cb4490887d85211cb74547e');
+        const articleResponse = await fetch('https://newsapi.org/v2/everything?q=ecosystem&pageSize=10&apiKey=36f6b80f9cb4490887d85211cb74547e');
         const articleData = await articleResponse.json();
+        console.log(articleData)
         
         setArticles(articleData.articles);
         setLoading(false);

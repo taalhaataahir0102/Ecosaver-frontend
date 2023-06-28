@@ -188,7 +188,7 @@ const Communities = () => {
           setShowCreateCommunity(false);
           setCommunityName('');
           setCommunityDescription('');
-        }
+        } 
       };
 
       createCommunity();
@@ -204,7 +204,7 @@ const Communities = () => {
     try {
       console.log(activeCommunity);
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/deletecommunity/${userID}`, {
+      const response = await fetch(`https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/deletecommunity/${userID}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
