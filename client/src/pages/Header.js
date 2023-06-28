@@ -7,7 +7,7 @@ const Header = () => {
     const token = localStorage.getItem('token');
     async function fetchUserIDFromToken(token) {
       try {
-        const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/useridfromtoken', {
+        const response = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/useridfromtoken', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -57,6 +57,18 @@ const Header = () => {
     window.location.href = '/';
   };
 
+  const handleLeaderboard = () => {
+    window.location.href = '/leaderboard';
+  };
+
+  const handleAwareness = () => {
+    window.location.href = '/awareness';
+  };
+  
+  const handleSupport = () => {
+    window.location.href = '/support';
+  };
+
   return (
     <header className="header">
       <nav className="navbar">
@@ -74,19 +86,19 @@ const Header = () => {
             </span>
           </li>
           <li className="nav-item">
-            <span className="nav-link" onClick={() => console.log('Leaderboard clicked')}>
+            <span className="nav-link" onClick={handleLeaderboard}>
               <FontAwesomeIcon icon={faTrophy} className="nav-icon" />
               Leaderboard
             </span>
           </li>
           <li className="nav-item">
-            <span className="nav-link" onClick={() => console.log('Awareness clicked')}>
+            <span className="nav-link" onClick={handleAwareness}>
               <FontAwesomeIcon icon={faLightbulb} className="nav-icon" />
               Awareness
             </span>
           </li>
           <li className="nav-item">
-            <span className="nav-link" onClick={() => console.log('Help/Support clicked')}>
+            <span className="nav-link" onClick={handleSupport}>
               <FontAwesomeIcon icon={faQuestionCircle} className="nav-icon" />
               Support
             </span>

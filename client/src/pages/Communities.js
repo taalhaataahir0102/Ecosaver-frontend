@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './Communities.css';
 import Header from './Header';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Communities = () => {
   const { userID } = useParams();
@@ -14,12 +16,13 @@ const Communities = () => {
   const [communities, setCommunities] = useState([]);
   const [communityID, setCommunityID] = useState('');
   const [loading, setLoading] = useState(true);
+  const [activeCommunityname, setactiveCommunityname] = useState('');
 
 
   const fetchCommunities = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://ecosaver-backend-taalhaataahir0102.vercel.app/api/communities/${userID}`, {
+      const response = await fetch(`https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/communities/${userID}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,6 +31,7 @@ const Communities = () => {
       if (response.ok) {
         const data = await response.json();
         setCommunities(data);
+        console.log(data);
       } else {
         console.error('Failed to fetch communities');
         window.location.href = '/signin';
@@ -38,21 +42,22 @@ const Communities = () => {
     }
   };
 
-  const handleCommunityClick = async (community) => {
+  const handleCommunityClick = async (community,community_name) => {
     setActiveCommunity(community);
+    console.log(community);
     setLoading(true);
-    const clickedCommunity = communities.find((c) => c.name === community);
-    if (clickedCommunity) {
-      setCommunityID(clickedCommunity._id);
+    setactiveCommunityname(community_name);
+    // const clickedCommunity = communities.find((c) => c.name === community);
+      // setCommunityID(clickedCommunity._id);
 
       try {
-        const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/communitychat', {
+        const response = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/communitychat', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            communityId: clickedCommunity._id,
+            communityId: community,
           }),
         });
 
@@ -67,14 +72,13 @@ const Communities = () => {
       } finally {
         setLoading(false);
       }
-    }
   };
 
   const handleSendMessage = async () => {
     if (messageInput.trim() !== '') {
       try {
         // Fetch the user's name from the backend API
-        const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/getUserName', {
+        const response = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/getUserName', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -87,6 +91,7 @@ const Communities = () => {
         if (response.ok) {
           const data = await response.json();
           const userName = data.name; // Extract the user's name from the response
+          console.log(userName);
           const newMessage = {
             name: userName, // Use the retrieved user's name
             comment: messageInput.trim(),
@@ -94,13 +99,13 @@ const Communities = () => {
           };
 
           // Call the /api/chat endpoint to save the message
-          const chatResponse = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/chat', {
+          const chatResponse = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/chat', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              community_id: communityID, // Pass the active community ID
+              community_id: activeCommunity, // Pass the active community ID
               user_id: userID, // Pass the user ID
               message: newMessage.comment,
             }),
@@ -152,7 +157,7 @@ const Communities = () => {
       // You can handle community creation logic here, e.g., make an API call
       const createCommunity = async () => {
         try {
-          const response = await fetch('https://ecosaver-backend-taalhaataahir0102.vercel.app/api/createcommunity', {
+          const response = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/createcommunity', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -160,6 +165,7 @@ const Communities = () => {
             body: JSON.stringify({
               name: communityName,
               description: communityDescription,
+              user_id: userID,
             }),
           });
 
@@ -194,6 +200,35 @@ const Communities = () => {
     window.location.href = `/viewuser/${user_id}`;
   };
 
+  const handleDeleteCommunity = async (activeCommunity) => {
+    try {
+      console.log(activeCommunity);
+      const token = localStorage.getItem('token');
+      const response = await fetch(`https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/deletecommunity/${userID}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          communityid: activeCommunity,
+        }),
+      });
+  
+      if (response.ok) {
+        // Community deleted successfully
+        alert('Community deleted successfully');
+        window.location.href = `/communities/${userID}`;
+      } else {
+        // Failed to delete community
+        const errorData = await response.json();
+        alert(errorData.message);
+      }
+    } catch (error) {
+      console.error('Error deleting community:', error);
+    }
+  };
+
   useEffect(() => {
     // Fetch the communities when the component mounts
     fetchCommunities();
@@ -207,15 +242,15 @@ const Communities = () => {
           <h2 className="sidebar-title">Communities</h2>
           <div className="community-list-wrapper">
             <ul className="community-list">
-              {communities.map((community) => (
-                <li
-                  className={`community-item ${activeCommunity === community.name ? 'active' : ''}`}
-                  onClick={() => handleCommunityClick(community.name)}
-                  key={community._id}
-                >
-                  {community.name}
-                </li>
-              ))}
+            {communities.map((community) => (
+              <li
+                className={`community-item ${activeCommunity === community._id ? 'active' : ''}`}
+                onClick={() => handleCommunityClick(community._id,community.name)}
+                key={community._id}
+              >
+                {community.name}
+              </li>
+            ))}
             </ul>
           </div>
           <button className="create-community-button" onClick={handleCreateCommunity}>
@@ -250,9 +285,18 @@ const Communities = () => {
             </div>
           ) : activeCommunity ? (
             <>
-              <h2 className="main-title">{activeCommunity}</h2>
+              <h2 className="main-title">
+                {activeCommunityname}
+                {communities.find((community) => community._id === activeCommunity)?.owner === userID && (
+                  <FontAwesomeIcon
+                    icon={faTrashAlt}
+                    className="delete-icon"
+                    onClick={() => handleDeleteCommunity(activeCommunity)}
+                  />
+                )}
+              </h2>
               <p className="community-description">
-                {communities.find((community) => community.name === activeCommunity)?.description}
+                {communities.find((community) => community._id === activeCommunity)?.description}
               </p>
 
               {loading ? (
@@ -260,7 +304,10 @@ const Communities = () => {
               ) : (
                 <div className="chat-messages">
                   {messages.map((message, index) => (
-                    <div className="message" key={index}>
+                    <div
+                      className={`message ${message.user_id === userID ? 'sent-by-me' : 'sent-by-others'}`}
+                      key={index}
+                    >
                       <p className="sender-name" onClick={() => handlePerson(message.user_id)}>
                         {message.name}
                       </p>

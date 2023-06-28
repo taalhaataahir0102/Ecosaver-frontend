@@ -1,0 +1,96 @@
+.support-container {
+    background-color: #defdff;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .support-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .support-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type='text'],
+  input[type='email'],
+  textarea {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .submit-button {
+    padding: 10px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #207ab5;
+  }
+  
+  .submit-button:active {
+    background-color: #115c8d;
+  }
+  
+  .support-image {
+    position: fixed;
+    bottom: -330px; /* Start the image off the screen */
+    right: 20px;
+    width: 330px; /* Adjust the width as needed */
+    height: auto;
+    animation-name: popIn;
+    animation-duration: 0.9s;
+    animation-delay: 1.2s; /* Delay the animation by 1 second */
+    animation-fill-mode: forwards; /* Keep the final state of the animation */
+  }
+  
+  @keyframes popIn {
+    0% {
+      bottom: -330px;
+    }
+    100% {
+      bottom: 20px;
+    }
+  }
+  

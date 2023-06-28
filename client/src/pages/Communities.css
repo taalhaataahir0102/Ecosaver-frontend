@@ -4,7 +4,7 @@
   display: flex;
   padding-top: 55px;
   height: 100vh; /* Set the height of the community page to the full viewport height */
-  background-color: rgb(241, 247, 246);
+  background-color: #defdff;
 }
 
 .sidebar {
@@ -22,7 +22,7 @@
 }
 
 .community-list-wrapper {
-  max-height: 530px;
+  max-height: 430px;
   overflow-y: auto;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .chat-messages {
-  max-height: 530px;
+  max-height: 430px;
   overflow-y: auto;
 }
 
@@ -74,6 +74,16 @@
   margin-right: 10px;
   word-break: break-word; /* Enable word breaking */
   border-radius: 10px; /* Add border-radius for rounded edges */
+}
+
+.message.sent-by-me {
+  background-color: rgb(147, 241, 147); /* Color for messages sent by the logged-in user */
+  align-items: flex-end; /* Align items to the end (right) */
+  justify-content: flex-end; /* Justify content to the end (right) */
+}
+
+.message.sent-by-others {
+  background-color: white; /* Color for messages sent by others */
 }
 
 .sender-name {
@@ -184,4 +194,9 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
 }

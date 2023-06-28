@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`https://ecosaver-backend-taalhaataahir0102.vercel.app/api/viewtheuser/${userID}`, {
+        const response = await fetch(`https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/viewtheuser/${userID}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
