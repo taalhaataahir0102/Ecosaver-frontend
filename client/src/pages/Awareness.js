@@ -13,7 +13,7 @@ const News = () => {
         if (!token) {
           window.location.href = '/signin';
           return;
-        }
+        } 
         
         const userResponse = await fetch('https://ecosaver-backend-bhkj4m9ld-taalhaataahir0102.vercel.app/api/user', {
           headers: {
@@ -29,11 +29,10 @@ const News = () => {
         
         //const userData = await userResponse.json();
         
-        const articleResponse = await fetch('https://newsapi.org/v2/everything?q=ecosystem&pageSize=10&apiKey=36f6b80f9cb4490887d85211cb74547e');
-        const articleData = await articleResponse.json();
-        console.log(articleData)
-        
-        setArticles(articleData.articles);
+        const response = await fetch('https://ecosaver-backend-zr0lv6etz-taalhaataahir0102.vercel.app/api/awareness'); // Replace with your backend API endpoint
+        const data = await response.json();
+
+        setArticles(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching articles:', error);
