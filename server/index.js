@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const fetch = require('node-fetch');
 const secretKey = 'talha';
 
 dotenv.config();
@@ -428,5 +429,25 @@ app.delete('/api/deletecommunity/:userID', authenticateToken, async (req, res) =
   } catch (error) {
     console.error('Error deleting community:', error);
     res.status(500).json({ message: 'Failed to delete community' });
+  }
+});
+
+app.get('/api/awareness', async (req, res) => {
+  try {
+    const url = 'https://newsapi.org/v2/everything';
+    const params = new URLSearchParams({
+      q: 'ecosystem',
+      pageSize: 20,
+      apiKey: '36f6b80f9cb4490887d85211cb74547e',
+    });
+
+    const response = await fetch(`${url}?${params}`);
+    const data = await response.json();
+
+    const articles = data.articles;
+    res.json(articles);
+  } catch (error) {
+    console.error('Error fetching news articles:', error);
+    res.status(500).json({ error: 'Failed to fetch news articles' });
   }
 });
